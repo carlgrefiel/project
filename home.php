@@ -4,11 +4,11 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
    header('location:index.php');
-   $user_id = '';
+   $reader_id = '';
 };
 
 include 'components/like_post.php';
@@ -57,8 +57,8 @@ include 'components/like_post.php';
                $count_post_likes->execute([$post_id]);
                $total_post_likes = $count_post_likes->rowCount();
 
-               $confirm_likes = $conn->prepare("SELECT * FROM `likes` WHERE user_id = ? AND post_id = ?");
-               $confirm_likes->execute([$user_id, $post_id]);
+               $confirm_likes = $conn->prepare("SELECT * FROM `likes` WHERE reader_id = ? AND post_id = ?");
+               $confirm_likes->execute([$reader_id, $post_id]);
       ?>
       <form class="box" method="post">
          <input type="hidden" name="post_id" value="<?= $post_id; ?>">

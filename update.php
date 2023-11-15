@@ -4,10 +4,10 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
-   $user_id = '';
+   $reader_id = '';
    header('location:index.php');
 };
 
@@ -17,47 +17,47 @@ if(isset($_POST['submit'])){
    $firstname = filter_var($firstname, FILTER_SANITIZE_STRING);
 
    if(!empty($firstname)){
-      $update_firstname = $conn->prepare("UPDATE `users` SET firstname = ? WHERE id = ?");
-      $update_firstname->execute([$firstname, $user_id]);
+      $update_firstname = $conn->prepare("UPDATE `readers` SET firstname = ? WHERE id = ?");
+      $update_firstname->execute([$firstname, $reader_id]);
    }
 
    $lastname = $_POST['lastname'];
    $lastname = filter_var($lastname, FILTER_SANITIZE_STRING);
 
    if(!empty($lastname)){
-      $update_lastname = $conn->prepare("UPDATE `users` SET lastname = ? WHERE id = ?");
-      $update_lastname->execute([$lastname, $user_id]);
+      $update_lastname = $conn->prepare("UPDATE `readers` SET lastname = ? WHERE id = ?");
+      $update_lastname->execute([$lastname, $reader_id]);
    }
 
    $email = $_POST['email'];
    $email = filter_var($email, FILTER_SANITIZE_STRING);
 
    if(!empty($email)){
-      $update_email = $conn->prepare("UPDATE `users` SET email = ? WHERE id = ?");
-      $update_email->execute([$email, $user_id]);
+      $update_email = $conn->prepare("UPDATE `readers` SET email = ? WHERE id = ?");
+      $update_email->execute([$email, $reader_id]);
    }
 
    $birthdate = $_POST['birthdate'];
    $birthdate = filter_var($birthdate, FILTER_SANITIZE_STRING);
 
    if(!empty($birthdate)){
-      $update_birthdate = $conn->prepare("UPDATE `users` SET birthdate = ? WHERE id = ?");
-      $update_birthdate->execute([$birthdate, $user_id]);
+      $update_birthdate = $conn->prepare("UPDATE `readers` SET birthdate = ? WHERE id = ?");
+      $update_birthdate->execute([$birthdate, $reader_id]);
    }
 
    $contact_number = $_POST['contact_number'];
    $contact_number = filter_var($contact_number, FILTER_SANITIZE_STRING);
 
    if(!empty($contact_number)){
-      $update_contact_number = $conn->prepare("UPDATE `users` SET contact_number = ? WHERE id = ?");
-      $update_contact_number->execute([$contact_number, $user_id]);
+      $update_contact_number = $conn->prepare("UPDATE `readers` SET contact_number = ? WHERE id = ?");
+      $update_contact_number->execute([$contact_number, $reader_id]);
    }
    $address = $_POST['address'];
    $address = filter_var($address, FILTER_SANITIZE_STRING);
 
    if(!empty($address)){
-      $update_address = $conn->prepare("UPDATE `users` SET address = ? WHERE id = ?");
-      $update_address->execute([$address, $user_id]);
+      $update_address = $conn->prepare("UPDATE `readers` SET address = ? WHERE id = ?");
+      $update_address->execute([$address, $reader_id]);
    }
 
    $message[] = 'Updated successfully!';

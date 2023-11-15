@@ -4,11 +4,11 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
    header('location:index.php');
-   $user_id = '';
+   $reader_id = '';
 };
 
 include 'components/like_post.php';

@@ -4,11 +4,11 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
    header('location:index.php');
-   $user_id = '';
+   $reader_id = '';
 };
 
 include 'components/like_post.php';
@@ -24,14 +24,14 @@ if(isset($_POST['add_comment'])){
    $comment = $_POST['comment'];
    $comment = filter_var($comment, FILTER_SANITIZE_STRING);
 
-   $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ? AND author_id = ? AND user_id = ? AND user_name = ? AND comment = ?");
-   $verify_comment->execute([$get_id, $author_id, $user_id, $user_name, $comment]);
+   $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ? AND author_id = ? AND reader_id = ? AND user_name = ? AND comment = ?");
+   $verify_comment->execute([$get_id, $author_id, $reader_id, $user_name, $comment]);
 
    if($verify_comment->rowCount() > 0){
       $message[] = 'comment already added!';
    }else{
-      $insert_comment = $conn->prepare("INSERT INTO `comments`(post_id, author_id, user_id, user_name, comment) VALUES(?,?,?,?,?)");
-      $insert_comment->execute([$get_id, $author_id, $user_id, $user_name, $comment]);
+      $insert_comment = $conn->prepare("INSERT INTO `comments`(post_id, author_id, reader_id, user_name, comment) VALUES(?,?,?,?,?)");
+      $insert_comment->execute([$get_id, $author_id, $reader_id, $user_name, $comment]);
       $message[] = 'new comment added!';
    }
 
@@ -72,7 +72,7 @@ if(isset($_POST['delete_comment'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>view post</title>
+   <title>View Post</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -131,8 +131,8 @@ if(isset($_POST['delete_comment'])){
             $count_post_likes->execute([$post_id]);
             $total_post_likes = $count_post_likes->rowCount();
 
-            $confirm_likes = $conn->prepare("SELECT * FROM `likes` WHERE user_id = ? AND post_id = ?");
-            $confirm_likes->execute([$user_id, $post_id]);
+            $confirm_likes = $conn->prepare("SELECT * FROM `likes` WHERE reader_id = ? AND post_id = ?");
+            $confirm_likes->execute([$reader_id, $post_id]);
       ?>
       <form class="box" method="post">
          <input type="hidden" name="post_id" value="<?= $post_id; ?>">
@@ -174,7 +174,7 @@ if(isset($_POST['delete_comment'])){
 
    <p class="comment-title">add comment</p>
    <?php
-      if($user_id != ''){  
+      if($reader_id != ''){  
          $select_admin_id = $conn->prepare("SELECT * FROM `posts` WHERE id = ?");
          $select_admin_id->execute([$get_id]);
          $fetch_admin_id = $select_admin_id->fetch(PDO::FETCH_ASSOC);
@@ -205,7 +205,7 @@ if(isset($_POST['delete_comment'])){
          if($select_comments->rowCount() > 0){
             while($fetch_comments = $select_comments->fetch(PDO::FETCH_ASSOC)){
       ?>
-      <div class="show-comments" style="<?php if($fetch_comments['user_id'] == $user_id){echo 'order:-1;'; } ?>">
+      <div class="show-comments" style="<?php if($fetch_comments['reader_id'] == $reader_id){echo 'order:-1;'; } ?>">
          <div class="comment-user">
             <i class="fas fa-user"></i>
             <div>
@@ -213,9 +213,9 @@ if(isset($_POST['delete_comment'])){
                <div><?= $fetch_comments['date']; ?></div>
             </div>
          </div>
-         <div class="comment-box" style="<?php if($fetch_comments['user_id'] == $user_id){echo 'color:var(--black); background:var(--light-color);'; } ?>"><?= $fetch_comments['comment']; ?></div>
+         <div class="comment-box" style="<?php if($fetch_comments['reader_id'] == $reader_id){echo 'color:var(--black); background:var(--light-color);'; } ?>"><?= $fetch_comments['comment']; ?></div>
          <?php
-            if($fetch_comments['user_id'] == $user_id){  
+            if($fetch_comments['reader_id'] == $reader_id){  
          ?>
          <form action="" method="POST">
             <input type="hidden" name="comment_id" value="<?= $fetch_comments['id']; ?>">

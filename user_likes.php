@@ -4,10 +4,10 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
-   $user_id = '';
+   $reader_id = '';
    header('location:index.php');
 };
 
@@ -43,8 +43,8 @@ include 'components/like_post.php';
    <div class="box-container">
 
       <?php
-         $select_likes = $conn->prepare("SELECT * FROM `likes` WHERE user_id = ?");
-         $select_likes->execute([$user_id]);
+         $select_likes = $conn->prepare("SELECT * FROM `likes` WHERE reader_id = ?");
+         $select_likes->execute([$reader_id]);
          if($select_likes->rowCount() > 0){
          while($fetch_likes = $select_likes->fetch(PDO::FETCH_ASSOC)){
          $select_posts = $conn->prepare("SELECT * FROM `posts` WHERE id = ?");
@@ -86,7 +86,7 @@ include 'components/like_post.php';
          <a href="view_post.php?post_id=<?= $post_id; ?>" class="inline-btn">read more</a>
          <div class="icons">
             <a href="view_post.php?post_id=<?= $post_id; ?>"><i class="fas fa-comment"></i><span>(<?= $total_post_likes; ?>)</span></a>
-            <button type="submit" name="like_post"><i class="fas fa-heart" style="<?php if($total_post_likes > 0 AND $user_id != ''){ echo 'color:red;'; }; ?>"></i><span>(<?= $total_post_likes; ?>)</span></button>
+            <button type="submit" name="like_post"><i class="fas fa-heart" style="<?php if($total_post_likes > 0 AND $reader_id != ''){ echo 'color:red;'; }; ?>"></i><span>(<?= $total_post_likes; ?>)</span></button>
          </div>
       
       </form>
@@ -106,18 +106,6 @@ include 'components/like_post.php';
    </div>
 
 </section>
-
-
-
-
-
-
-
-
-
-
-<?php include 'components/footer.php'; ?>
-
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
 

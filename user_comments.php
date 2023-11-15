@@ -4,10 +4,10 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
-   $user_id = '';
+   $reader_id = '';
    header('location:index.php');
 };
 
@@ -92,8 +92,8 @@ if(isset($_POST['delete_comment'])){
    <p class="comment-title">your comments on the posts</p>
    <div class="user-comments-container">
       <?php
-         $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE user_id = ?");
-         $select_comments->execute([$user_id]);
+         $select_comments = $conn->prepare("SELECT * FROM `comments` WHERE reader_id = ?");
+         $select_comments->execute([$reader_id]);
          if($select_comments->rowCount() > 0){
             while($fetch_comments = $select_comments->fetch(PDO::FETCH_ASSOC)){
       ?>

@@ -80,13 +80,13 @@ if(!isset($author_id)){
 
    <div class="box">
       <?php
-         $select_users = $conn->prepare("SELECT * FROM `users`");
+         $select_users = $conn->prepare("SELECT * FROM `readers`");
          $select_users->execute();
          $numbers_of_users = $select_users->rowCount();
       ?>
       <h3><?= $numbers_of_users; ?></h3>
-      <p>users account</p>
-      <a href="users_accounts.php" class="btn">see users</a>
+      <p>Readers account</p>
+      <a href="readers_accounts.php" class="btn">see readers</a>
    </div>
 
    <div class="box">

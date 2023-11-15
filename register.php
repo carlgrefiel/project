@@ -4,10 +4,10 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['reader_id'])){
+   $reader_id = $_SESSION['reader_id'];
 }else{
-   $user_id = '';
+   $reader_id = '';
 };
 
 if(isset($_POST['submit'])){
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
    $cpass = sha1($_POST['cpass']);
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
 
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+   $select_user = $conn->prepare("SELECT * FROM `readers` WHERE email = ?");
    $select_user->execute([$email]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,7 @@ if(isset($_POST['submit'])){
          $select_user->execute([$email, $pass]);
          $row = $select_user->fetch(PDO::FETCH_ASSOC);
          if($select_user->rowCount() > 0){
-            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['reader_id'] = $row['id'];
             header('location:home.php');
          }
       }
