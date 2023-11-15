@@ -26,7 +26,7 @@ include 'components/like_post.php';
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="css/user_Style.css">
+   <link rel="stylesheet" href="css/authorStyling.css">
 
 </head>
 <body>
@@ -62,7 +62,7 @@ include 'components/like_post.php';
       ?>
       <form class="box" method="post">
          <input type="hidden" name="post_id" value="<?= $post_id; ?>">
-         <input type="hidden" name="admin_id" value="<?= $fetch_posts['admin_id']; ?>">
+         <input type="hidden" name="author_id" value="<?= $fetch_posts['author_id']; ?>">
          <div class="post-admin">
             <i class="fas fa-user"></i>
             <div>
@@ -104,7 +104,7 @@ include 'components/like_post.php';
    }
 ?>
    
-<?php include 'components/footer.php'; ?>
+
 
 <script src="js/script.js"></script>
 

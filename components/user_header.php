@@ -28,10 +28,10 @@ if(isset($message)){
       </div>
 
       <nav class="navbar">
-         <a href="home.php"> <i class="fas fa-angle-right"></i> home</a>
-         <a href="posts.php"> <i class="fas fa-angle-right"></i> posts</a>
-         <a href="all_category.php"> <i class="fas fa-angle-right"></i> category</a>
-         <a href="authors.php"> <i class="fas fa-angle-right"></i> authors</a>
+         <a href="home.php"> <i class="fas fa-angle-right"></i> Home</a>
+         <a href="posts.php"> <i class="fas fa-angle-right"></i> Posts</a>
+         <a href="all_category.php"> <i class="fas fa-angle-right"></i> Category</a>
+         <a href="authors.php"> <i class="fas fa-angle-right"></i> Authors</a>
          
       </nav>
 
@@ -43,14 +43,14 @@ if(isset($message)){
                $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
          ?>
          <p class="name"><?= $fetch_profile['firstname']; ?></p>
-         <a href="update.php" class="btn">update profile</a>
+         <a href="update.php" class="btn">Update profile</a>
         
          <a href="components/user_logout.php" onclick="return confirm('logout from this website?');" class="delete-btn">logout</a>
          <?php
             }else{
          ?>
-            <p class="name">please login first!</p>
-            <a href="login.php" class="option-btn">login</a>
+            <p class="name">Please login first!</p>
+            <a href="login.php" class="option-btn">Login</a>
          <?php
             }
          ?>
